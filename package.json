@@ -1,0 +1,12 @@
+{
+  "name": "testocr",
+  "version": "1.0.0",
+  "description": "Korean exam paper OCR - PDF to text converter",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
