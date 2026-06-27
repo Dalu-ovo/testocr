@@ -782,9 +782,11 @@ ${bodyHtml}</body>
 
   function fixQuotes(text) {
     // 직선 큰따옴표 → 열고 닫는 큰따옴표
-    text = text.replace(/"([^"]*)"/g, '“$1”');
+    text = text.replace(/”([^”]*)”/g, ‘”$1”’);
     // 직선 작은따옴표(쌍으로 된 것) → 열고 닫는 작은따옴표
-    text = text.replace(/'([^']*)'/g, '‘$1’');
+    text = text.replace(/’([^’]*)’/g, ‘’$1’’);
+    // 배점 표기 제거: [3점], [3.3점], (2점) 등
+    text = text.replace(/[\[(][\d.]+\s*점[\])]/g, ‘’);
     return text;
   }
 
