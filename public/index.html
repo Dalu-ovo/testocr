@@ -781,11 +781,12 @@ ${bodyHtml}</body>
   }
 
   function fixQuotes(text) {
-    // 직선 큰따옴표 → 열고 닫는 큰따옴표
-    text = text.replace(/”([^”]*)”/g, ‘”$1”’);
-    // 직선 작은따옴표(쌍으로 된 것) → 열고 닫는 작은따옴표
-    text = text.replace(/’([^’]*)’/g, ‘’$1’’);
-    // 배점 표기 제거: [3점], [3.3점], (2점) 등
+    var odq = String.fromCharCode(0x201C); // “
+    var cdq = String.fromCharCode(0x201D); // “
+    var osq = String.fromCharCode(0x2018); // ‘
+    var csq = String.fromCharCode(0x2019); // ‘
+    text = text.replace(/”([^”]*)”/g, odq + ‘$1’ + cdq);
+    text = text.replace(/’([^’]*)’/g, osq + ‘$1’ + csq);
     text = text.replace(/[\[(][\d.]+\s*점[\])]/g, ‘’);
     return text;
   }
