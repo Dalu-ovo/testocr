@@ -301,7 +301,17 @@ var app = (function () {
           th.getContext("2d").drawImage(cv, 0, 0, th.width, th.height);
           sel.canvasCon().appendChild(th);
 
-          var du = cv.toDataURL("image/jpeg", 0.85);
+          var MAX_PX = 7000;
+          var sendCanvas = cv;
+          if (cv.width > MAX_PX || cv.height > MAX_PX) {
+            var ratio = Math.min(MAX_PX / cv.width, MAX_PX / cv.height);
+            var sc = document.createElement("canvas");
+            sc.width  = Math.floor(cv.width  * ratio);
+            sc.height = Math.floor(cv.height * ratio);
+            sc.getContext("2d").drawImage(cv, 0, 0, sc.width, sc.height);
+            sendCanvas = sc;
+          }
+          var du = sendCanvas.toDataURL("image/jpeg", 0.85);
           var b64 = du.slice(du.indexOf(",") + 1);
 
           setProgress(base + (0.45 / count) * 92, "페이지 " + pn + " - Claude AI 인식 중...");
